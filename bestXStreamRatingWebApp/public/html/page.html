@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+<script src="../javascripts/client.js"></script>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-poller/0.4.2/angular-poller.js"></script>
+
+<link rel='stylesheet' href='/stylesheets/style.css' />
+<head>
+    <title>bestXStreamRatingWebApp - Spark vs. Flink</title>
+    
+</head>
+<body>
+<div ng-app="bestXStreamRatingWebApp" ng-controller="myCtrl">
+  <h1>Best X Stream Sentiment Rating Spark vs. Flink</h1>
+<p>This page performs a live ranking of the current sentiment on the configured terms in the twitter stream. The backend was implemented in both 
+Apache Spark Streaming and Apache Flink Streaming that are powering this page.<br /></p>
+
+	<div class="panel panel-default spark-panel">
+			<div class="panel-heading">
+				<h3 class="panel-title">Apache Spark Streaming</h3>
+			</div>
+			<div class="panel-body">
+				<ul class="list-group spark-group">
+					<li ng-repeat="t in spark" class="list-group-item list-group-item-{{t.stype}}">
+							<img ng-src="{{t.image}}" />
+							<span class="badge">{{t.occurence}}</span>
+							<h3>{{t.displayName}}</h3>
+							<p>
+								<table>
+									<tr><td>Average Sentiment</td><td>{{t.sentiment | number: 2}}</td></tr>
+									<tr><td>Change</td><td>{{t.change | number: 2}}</td></tr>
+									<tr><td>Seconds since last update</td><td>{{t.age | number: 0}}s</td></tr>
+									<!--<tr><td>Number of Retweets</td><td>{{t.retweets | number: 0}}</td></tr>-->
+								</table>
+							</p>
+						</li>
+				</ul>
+			</div>
+		</div>
+  
+		<div class="panel panel-default flink-panel">
+				<div class="panel-heading">
+					<h3 class="panel-title">Apache Flink Streaming</h3>
+				</div>
+				<div class="panel-body">
+					<ul class="list-group flink-group">
+						<li ng-repeat="t in flink" class="list-group-item list-group-item-{{t.stype}}">
+							<img ng-src="{{t.image}}" />
+							<span class="badge">{{t.occurence}}</span>
+							<h3>{{t.displayName}}</h3>
+							<p>
+								<table>
+									<tr><td>Average Sentiment</td><td>{{t.sentiment | number: 2}}</td></tr>
+									<tr><td>Change</td><td>{{t.change | number: 2}}</td></tr>
+									<tr><td>Seconds since last update</td><td>{{t.age | number: 0}}s</td></tr>
+									<!--<tr><td>Number of Retweets</td><td>{{t.retweets | number: 0}}</td></tr>-->
+								</table>
+							</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+  
+  
+  
+</div>
+
+</body>
+</html> 
