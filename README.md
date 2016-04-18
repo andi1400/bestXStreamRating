@@ -121,7 +121,23 @@ The web application currently assumes that it is running on the same server as t
 In order to define what bestXStreamRating is supposed to rank tweets on you need to provide a configuration file in the following format
 
 ```
-arbitraryidentifier\tDisplay Name for Webapp\tsynonymTermA,synonym term b,synonymC\thttp://your_server/image.jpg
+arbitraryidentifier<TAB>Display Name for Webapp<TAB>synonymTermA,synonym term b,synonymC<TAB>http://your_server/image.jpg
+```
+
+Hence a file that would rank tweets about fruit might look as follows
+
+```
+arbitraryidentifier<TAB>Display Name for Webapp<TAB>synonymTermA,synonym term b,synonymC<TAB>http://your_server/image.jpg
+```
+
+An example analyzing tweets about different instances of fruits might look as follows
+
+```
+banana	Banana	banana,nanner	https://upload.wikimedia.org/wikipedia/commons/b/b6/3_Bananas.jpg
+maracuya	Maracuya	passion fruit,maracuya	https://upload.wikimedia.org/wikipedia/commons/0/0e/Passionfruit_and_cross_section.jpg
+apple	Apple	apple	https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg
+strawberry	Strawberry	strawberry	https://upload.wikimedia.org/wikipedia/commons/7/7e/Strawberry_BNC.jpg
+pineapple	Pineapple	pineapple	https://upload.wikimedia.org/wikipedia/commons/c/cb/Pineapple_and_cross_section.jpg
 ```
 
 ### Securing the Web App
