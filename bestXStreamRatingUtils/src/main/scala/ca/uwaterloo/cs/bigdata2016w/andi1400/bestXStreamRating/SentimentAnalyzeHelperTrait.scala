@@ -77,7 +77,6 @@ trait SentimentAnalyzeHelperTrait {
     val sentimentCount: Int = if(useStanfordNLP){
       SentimentUtils.analyzeSentiment(post)
     }else {
-      println("Not Using snlp")
       val sentimentCountPerTerm = tokenizedPost.map(w => wordSentiments.getOrElse(w, 0))
 
       //sum all the sentiment counts up to get the sentiment for the whole tweet
