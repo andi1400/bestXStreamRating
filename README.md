@@ -112,9 +112,17 @@ spark-submit --class ca.uwaterloo.cs.bigdata2016w.andi1400.bestXStreamRating.Ana
 
 Simply run ``nodejs app.js <REDIS_PORT>`` from the directory bestXStreamRatingWebApp and the web app will be available at http://YOUR_SERVER_NAME_IP:3030/html/page.html
 
+The web application currently assumes that it is running on the same server as the Redis server is running.
+
 ## Configuration
 
 ### Specifying terms of interest
+
+In order to define what bestXStreamRating is supposed to rank tweets on you need to provide a configuration file in the following format
+
+```
+arbitraryidentifier\tDisplay Name for Webapp\tsynonymTermA,synonym term b,synonymC\thttp://your_server/image.jpg
+```
 
 ### Securing the Web App
 
@@ -158,7 +166,7 @@ npm install
 cd ..
 mvn clean install
 ```
-Make sure to download the AFINN-111.txt as described in the Prerequisites section, create a configuration file of terms and you should be good to go.
+Make sure to download the AFINN-111.txt as described in the Prerequisites section, create a configuration file of terms and you should be good to go for deployment in local mode now.
 
 ## License
 
