@@ -16,6 +16,8 @@ The project is organized as a Maven multi-module project which is made up by fou
 
 ``bestXStreamRatingWebApp`` contains the web application that is organized as an npm conform Node.JS application.
 
+The architecture of the streaming applications is described in detail in [this document.](../blob/master/LICENSE)
+
 ## Prerequisites
 
 The three components of bestXStreamRating can run decoupled and do not necessarily need to be run together. For any of the components you need to have a 
