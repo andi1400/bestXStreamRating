@@ -140,6 +140,8 @@ strawberry	Strawberry	strawberry	https://upload.wikimedia.org/wikipedia/commons/
 pineapple	Pineapple	pineapple	https://upload.wikimedia.org/wikipedia/commons/c/cb/Pineapple_and_cross_section.jpg
 ```
 
+This file can be found [here](../master/sample_config_fruits.csv)
+
 ### Securing the Web App
 
 The web applicaion has a HTTP basic authentication in place. The user and password can be set in the file ``bestXStreamRatingWebApp/users.htpasswd`` and default to ``user / user``.
