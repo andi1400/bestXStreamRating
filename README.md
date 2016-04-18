@@ -56,7 +56,7 @@ For deployment make sure you gathered together all prerequisites as described in
 Both Spark and Flink accept or require the following command line parameters upon execution
 
 |Parameter|Description|Comment|
-| ------------- |:-------------:| -----:|
+| ------------- |:-------------|:-----|
 | --winlen 40| The length of the window in seconds |  |
 | --slidefreq 8|  The number of seconds after which the window slides |  |
 | --batchlen 2 |  The length of a batch in Spark streaming| Spark only!  |
