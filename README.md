@@ -57,19 +57,20 @@ Both Spark and Flink accept or require the following command line parameters upo
 
 |Parameter|Description|Comment|
 | ------------- |:-------------:| -----:|
-| winlen |  |  |
-| slidefreq |  |  |
-| batchlen |  |  |
-| snlp |  |  |
-| dict |  |  |
-| consumerKey |  |  |
-| consumerSecret |  |  |
-| accessToken |  |  |
-| accessTokenSecret |  |  |
-| termsFile |  |  |
-| redisServer |  |  |
-| redisPort |  |  |
-| noRedis |  |  |
+| --winlen 40| The length of the window in seconds |  |
+| --slidefreq 8|  The number of seconds after which the window slides |  |
+| --batchlen 2 |  The length of a batch in Spark streaming| Spark only!  |
+| --snlp |  Use StanfordNLP for sentiment analysis  | highly recommended! |
+| --dict AFINN-111.txt| The fully qualified path to the sentiment dictionary. |  |
+| --consumer-key YOUR_CREDENTIALS| The consumer key for connecting to the Twitter API  |  |
+| --consumer-secret YOUR_CREDENTIALS| The consumer secret for connecting to the Twitter API |  |
+| --access-token YOUR_CREDENTIALS| The access token for connecting to the Twitter API |  |
+| --accessToken-secret YOUR_CREDENTIALS|  The access token secret for connecting to the Twitter API |  |
+| --terms-file terms.csv | The configuration file containing the terms  |  |
+| --redis-server localhost| The hostname or IP address of the Redis server | This server must be reachable from all worker nodes and the driver.  |
+| --redis-port 6379 | The port where the Redis server runs  |  |
+| --no-redis | If results should be displayed on the console instead of being pushed to redis  |  |
+| --fake-source | If a fake streaming source should be used instead of Twitter | Flink only!  
 
 ### bestXStreamRatingFlink
 
