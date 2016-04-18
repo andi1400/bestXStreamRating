@@ -74,10 +74,39 @@ Both Spark and Flink accept or require the following command line parameters upo
 
 ### bestXStreamRatingFlink
 
+#####Local Execution
+
+In order to run bestXStreamRatingFlink in local mode make sure you start Flink in local streaming mode using start-local-streaming.sh, then run from the bestXStreamRatingFlink directory
+
+```
+flink run -c ca.uwaterloo.cs.bigdata2016w.andi1400.bestXStreamRating.AnalyzeTwitterBestXSentimentRatingFlink target/bestXStreamRatingFlink-1.0-SNAPSHOT.jar --dict /path/to/your/AFINN-111.txt --access-token YOUR_CREDENTIALS --access-token-secret YOUR_CREDENTIALS --consumer-key YOUR_CREDENTIALS --consumer-secret YOUR_CREDENTIALS ---terms-file /path/to/your/terms.csv --snlp
+```
+
+#####YARN CLUSTER
+
+For execution on a Hadoop Yarn cluster upload the AFINN-111.txt file and the terms configuration file to HDFS, then assuming you are in the bestXStreamRatingFlink run for e.g. starting up with 4 yarn worker nodes
+
+```
+flink run -m yarn-cluster -yn 4 -c ca.uwaterloo.cs.bigdata2016w.andi1400.bestXStreamRating.AnalyzeTwitterBestXSentimentRatingFlink target/bestXStreamRatingFlink-1.0-SNAPSHOT.jar --access-token YOUR_CREDENTIALS --access-token-secret YOUR_CREDENTIALS --consumer-key YOUR_CREDENTIALS --consumer-secret YOUR_CREDENTIALS --terms-file hdfs:///path/to/terms.csv --dict hdfs:///path/to/AFINN-111.txt  --redis-server YOUR_REDIS_IP --snlp
+```
 
 ### bestXStreamRatingSpark
 
-TO BE DONE
+#####Local Execution
+
+In order to run bestXStreamRatingSpark in local mode make sure run from the bestXStreamRatingSpark directory
+
+```
+spark-submit --class ca.uwaterloo.cs.bigdata2016w.andi1400.bestXStreamRating.AnalyzeTwitterBestXSentimentRatingSpark target/bestXStreamRatingSpark-1.0-SNAPSHOT.jar --access-token YOUR_CREDENTIALS --access-token-secret YOUR_CREDENTIALS --consumer-key YOUR_CREDENTIALS --consumer-secret YOUR_CREDENTIALS --terms-file /path/to/your/terms.csv --dict /path/to/your/AFINN-111.txt --redis-server localhost --snlp
+```
+
+#####YARN CLUSTER
+
+For execution on a Hadoop Yarn cluster upload the AFINN-111.txt file and the terms configuration file to HDFS, then assuming you are in the bestXStreamRatingSpark run for e.g. starting up in your YARN cluster
+
+```
+spark-submit --class ca.uwaterloo.cs.bigdata2016w.andi1400.bestXStreamRating.AnalyzeTwitterBestXSentimentRatingSpark --master yarn --deploy-mode cluster target/bestXStreamRatingSpark-1.0-SNAPSHOT.jar ---access-token YOUR_CREDENTIALS --access-token-secret YOUR_CREDENTIALS --consumer-key YOUR_CREDENTIALS --consumer-secret YOUR_CREDENTIALS ---terms-file hdfs:///path/to/terms.csv --dict hdfs:///path/to/AFINN-111.txt  --redis-server YOUR_REDIS_IP  --snlp
+```
 
 ### bestXStreamRatingWebApp
 
