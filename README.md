@@ -16,6 +16,8 @@ The project is organized as a Maven multi-module project which is made up by fou
 
 ``bestXStreamRatingWebApp`` contains the web application that is organized as an npm conform Node.JS application.
 
+**The architecture of the streaming applications is described in detail in [this document.](../master/projectArchitecture.pdf)**
+
 ## Prerequisites
 
 The three components of bestXStreamRating can run decoupled and do not necessarily need to be run together. For any of the components you need to have a 
@@ -49,21 +51,94 @@ For building the Spark and Flink app artifacts just run ``mvn clean install`` in
 
 ## Deployment 
 
+For deployment make sure you gathered together all prerequisites as described in the respecitve section and your Redis server is up and running.
+
+Both Spark and Flink accept or require the following command line parameters upon execution
+
+|Parameter|Description|Comment|Optional|
+| ------------- |:-------------|:-----|:-----:|
+| --winlen 40| The length of the window in seconds |  |Y|
+| --slidefreq 8|  The number of seconds after which the window slides |  |Y|
+| --batchlen 2 |  The length of a batch in Spark streaming| Spark only!  |Y|
+| --snlp |  Use StanfordNLP for sentiment analysis  | highly recommended! |Y|
+| --dict AFINN-111.txt| The fully qualified path to the sentiment dictionary. |  |N|
+| --consumer-key YOUR_CREDENTIALS| The consumer key for connecting to the Twitter API  |  |N|
+| --consumer-secret YOUR_CREDENTIALS| The consumer secret for connecting to the Twitter API |  |N|
+| --access-token YOUR_CREDENTIALS| The access token for connecting to the Twitter API |  |N|
+| --accessToken-secret YOUR_CREDENTIALS|  The access token secret for connecting to the Twitter API |  |N|
+| --terms-file terms.csv | The configuration file containing the terms  |  |N|
+| --redis-server localhost| The hostname or IP address of the Redis server | This server must be reachable from all worker nodes and the driver.  |Y|
+| --redis-port 6379 | The port where the Redis server runs  |  |Y|
+| --no-redis | If results should be displayed on the console instead of being pushed to redis  |  |Y|
+| --fake-source | If a fake streaming source should be used instead of Twitter | Flink only!|Y|
+
 ### bestXStreamRatingFlink
 
-TO BE DONE
+#####Local Execution
+
+In order to run bestXStreamRatingFlink in local mode make sure you start Flink in local streaming mode using start-local-streaming.sh, then run from the bestXStreamRatingFlink directory
+
+```
+flink run -c ca.uwaterloo.cs.bigdata2016w.andi1400.bestXStreamRating.AnalyzeTwitterBestXSentimentRatingFlink target/bestXStreamRatingFlink-1.0-SNAPSHOT.jar --dict /path/to/your/AFINN-111.txt --access-token YOUR_CREDENTIALS --access-token-secret YOUR_CREDENTIALS --consumer-key YOUR_CREDENTIALS --consumer-secret YOUR_CREDENTIALS ---terms-file /path/to/your/terms.csv --snlp
+```
+
+#####YARN CLUSTER
+
+For execution on a Hadoop Yarn cluster upload the AFINN-111.txt file and the terms configuration file to HDFS, then assuming you are in the bestXStreamRatingFlink run for e.g. starting up with 4 yarn worker nodes
+
+```
+flink run -m yarn-cluster -yn 4 -c ca.uwaterloo.cs.bigdata2016w.andi1400.bestXStreamRating.AnalyzeTwitterBestXSentimentRatingFlink target/bestXStreamRatingFlink-1.0-SNAPSHOT.jar --access-token YOUR_CREDENTIALS --access-token-secret YOUR_CREDENTIALS --consumer-key YOUR_CREDENTIALS --consumer-secret YOUR_CREDENTIALS --terms-file hdfs:///path/to/terms.csv --dict hdfs:///path/to/AFINN-111.txt  --redis-server YOUR_REDIS_IP --snlp
+```
 
 ### bestXStreamRatingSpark
 
-TO BE DONE
+#####Local Execution
+
+In order to run bestXStreamRatingSpark in local mode make sure run from the bestXStreamRatingSpark directory
+
+```
+spark-submit --class ca.uwaterloo.cs.bigdata2016w.andi1400.bestXStreamRating.AnalyzeTwitterBestXSentimentRatingSpark target/bestXStreamRatingSpark-1.0-SNAPSHOT.jar --access-token YOUR_CREDENTIALS --access-token-secret YOUR_CREDENTIALS --consumer-key YOUR_CREDENTIALS --consumer-secret YOUR_CREDENTIALS --terms-file /path/to/your/terms.csv --dict /path/to/your/AFINN-111.txt --redis-server localhost --snlp
+```
+
+#####YARN CLUSTER
+
+For execution on a Hadoop Yarn cluster upload the AFINN-111.txt file and the terms configuration file to HDFS, then assuming you are in the bestXStreamRatingSpark run for e.g. starting up in your YARN cluster
+
+```
+spark-submit --class ca.uwaterloo.cs.bigdata2016w.andi1400.bestXStreamRating.AnalyzeTwitterBestXSentimentRatingSpark --master yarn --deploy-mode cluster target/bestXStreamRatingSpark-1.0-SNAPSHOT.jar ---access-token YOUR_CREDENTIALS --access-token-secret YOUR_CREDENTIALS --consumer-key YOUR_CREDENTIALS --consumer-secret YOUR_CREDENTIALS ---terms-file hdfs:///path/to/terms.csv --dict hdfs:///path/to/AFINN-111.txt  --redis-server YOUR_REDIS_IP  --snlp
+```
 
 ### bestXStreamRatingWebApp
 
 Simply run ``nodejs app.js <REDIS_PORT>`` from the directory bestXStreamRatingWebApp and the web app will be available at http://YOUR_SERVER_NAME_IP:3030/html/page.html
 
+The web application currently assumes that it is running on the same server as the Redis server is running.
+
 ## Configuration
 
 ### Specifying terms of interest
+
+In order to define what bestXStreamRating is supposed to rank tweets on you need to provide a configuration file in the following format
+
+```
+arbitraryidentifier<TAB>Display Name for Webapp<TAB>synonymTermA,synonym term b,synonymC<TAB>http://your_server/image.jpg
+```
+
+Hence a file that would rank tweets about fruit might look as follows
+
+```
+arbitraryidentifier<TAB>Display Name for Webapp<TAB>synonymTermA,synonym term b,synonymC<TAB>http://your_server/image.jpg
+```
+
+An example analyzing tweets about different instances of fruits might look as follows
+
+```
+banana	Banana	banana,nanner	https://upload.wikimedia.org/wikipedia/commons/b/b6/3_Bananas.jpg
+maracuya	Maracuya	passion fruit,maracuya	https://upload.wikimedia.org/wikipedia/commons/0/0e/Passionfruit_and_cross_section.jpg
+apple	Apple	apple	https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg
+strawberry	Strawberry	strawberry	https://upload.wikimedia.org/wikipedia/commons/7/7e/Strawberry_BNC.jpg
+pineapple	Pineapple	pineapple	https://upload.wikimedia.org/wikipedia/commons/c/cb/Pineapple_and_cross_section.jpg
+```
 
 ### Securing the Web App
 
@@ -107,7 +182,7 @@ npm install
 cd ..
 mvn clean install
 ```
-Make sure to download the AFINN-111.txt as described in the Prerequisites section, create a configuration file of terms and you should be good to go.
+Make sure to download the AFINN-111.txt as described in the Prerequisites section, create a configuration file of terms and you should be good to go for deployment in local mode now.
 
 ## License
 
