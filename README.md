@@ -1,14 +1,17 @@
 # bestXStreamRating
 
-bestXStreamRating implements a simple sentiment based ranker of tweets that adhere to a give a list of terms in a real-time streaming application using Apache Spark and Apache Flink. It has been build in order to explore and compare the stream processing capabilities of both systems.
+bestXStreamRating implements a simple sentiment based ranker of tweets that adhere to a given list of terms in a real-time streaming application using Apache Spark and Apache Flink. Two separate implementations have been creating implementing the same streaming workflow with both Spark and Flink. This project has been build in order to explore and compare the stream processing capabilities of these systems. Additionally a web application is provided to allow for visual comparison of the two systems.
 
 The terms that are analyzed can be anything - it has been tested analyzing for politicians of upcoming elections or names of well-known companies.
 
 ## Architecture
 
-TO BE DESCRIBED
-* architecture of solution
-* maven project architecture
+The project is organized as a Maven multi-module project which is made up by four modules.
+
+``bestXStreamRatingUtils`` contains the common parts used in both the Spark and Flink implementation. Most of the program logic for the transformations and the sentiment analysis can be found here.
+``bestXStreamRatingSpark`` contains the project for running as streaming job on Apache Spark.
+``bestXStreamRatingFlink`` contains the project for running as streaming job on Apache Flin.
+``bestXStreamRatingWebApp`` contains the web application that is organized as an npm conform Node.JS application.
 
 ## Prerequisites
 
