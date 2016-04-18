@@ -16,7 +16,7 @@ The project is organized as a Maven multi-module project which is made up by fou
 
 ``bestXStreamRatingWebApp`` contains the web application that is organized as an npm conform Node.JS application.
 
-The architecture of the streaming applications is described in detail in [this document.](../master/projectArchitecture.pdf)
+**The architecture of the streaming applications is described in detail in [this document.](../master/projectArchitecture.pdf)**
 
 ## Prerequisites
 
@@ -51,9 +51,28 @@ For building the Spark and Flink app artifacts just run ``mvn clean install`` in
 
 ## Deployment 
 
+For deployment make sure you gathered together all prerequisites as described in the respecitve section and your Redis server is up and running.
+
+Both Spark and Flink accept or require the following command line parameters upon execution
+
+|Parameter|Description|Comment|
+| ------------- |:-------------:| -----:|
+| winlen |  |  |
+| slidefreq |  |  |
+| batchlen |  |  |
+| snlp |  |  |
+| dict |  |  |
+| consumerKey |  |  |
+| consumerSecret |  |  |
+| accessToken |  |  |
+| accessTokenSecret |  |  |
+| termsFile |  |  |
+| redisServer |  |  |
+| redisPort |  |  |
+| noRedis |  |  |
+
 ### bestXStreamRatingFlink
 
-TO BE DONE
 
 ### bestXStreamRatingSpark
 
