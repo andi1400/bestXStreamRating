@@ -11,7 +11,7 @@ class Conf(args: Seq[String]) extends ScallopConf(args){
   val dict = opt[String](descr = "sentiment dictionary path", required = false, default = Some("AFINN-111.txt"))
 
   //the terms used for filtering
-  val termsFile = opt[String](descr = "terms to filter twitter stream", required = false, default = Some("terms.txt"))
+  val termsFile = opt[String](descr = "terms to filter twitter stream", required = false, default = Some("terms.csv"))
 
   //twitter stuff
   val consumerKey= opt[String](descr = "Twitter consumer key", required = true)
@@ -23,11 +23,6 @@ class Conf(args: Seq[String]) extends ScallopConf(args){
   val redisServer = opt[String](descr = "redis server ip or hostname", required = false, default = Some("localhost"))
   val redisPort = opt[Int](descr = "redis port", required = false, default = Some(6379))
   val noRedis = opt[Boolean](descr = "do not use redis as target output", required = false, default = Some(false))
-
-  val sshTunnel = opt[Boolean](descr = "use ssh tunnel", required = false, default = Some(false))
-  val sshPrivateKey = opt[String](descr = "private key for ssh tunnel", required = false, default = Some(""))
-  val sshUser = opt[String](descr = "user for ssh tunnel", required = false, default = Some(""))
-  val sshPort = opt[Int](descr = "ssh port for ssh tunnel", required = false, default = Some(22))
 
   val fakeSource = opt[Boolean](descr = "do not use real twitter stream", required = false, default = Some(false))
 

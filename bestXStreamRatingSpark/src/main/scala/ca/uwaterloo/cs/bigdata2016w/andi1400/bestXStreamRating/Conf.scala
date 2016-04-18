@@ -15,7 +15,7 @@ class Conf(args: Seq[String]) extends ScallopConf(args){
   val accessToken = opt[String](descr = "Twitter access token", required = true)
   val accessTokenSecret = opt[String](descr = "Twitter access token secret", required = true)
 
-  val termsFile = opt[String](descr = "terms to filter twitter stream", required = false, default = Some("terms.txt"))
+  val termsFile = opt[String](descr = "terms to filter twitter stream", required = false, default = Some("terms.csv"))
 
   //redis server
   val redisServer = opt[String](descr = "redis server ip or hostname", required = false, default = Some("localhost"))

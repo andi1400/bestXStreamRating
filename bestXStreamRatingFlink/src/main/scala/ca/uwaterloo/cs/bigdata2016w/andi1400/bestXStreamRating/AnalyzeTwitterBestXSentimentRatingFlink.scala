@@ -49,12 +49,6 @@ object AnalyzeTwitterBestXSentimentRatingFlink extends SentimentAnalyzeHelperTra
     //Redis Server Config
     val redisServer = args.redisServer()
     val useRedis = !args.noRedis()
-    val useSSHTunnel = args.sshTunnel()
-
-    val sshPKey = args.sshPrivateKey()
-
-    val sshUser = args.sshUser()
-    val sshPort = args.sshPort()
 
     //open flink execution environment
     val env = StreamExecutionEnvironment.getExecutionEnvironment
