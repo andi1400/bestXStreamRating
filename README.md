@@ -9,8 +9,11 @@ The terms that are analyzed can be anything - it has been tested analyzing for p
 The project is organized as a Maven multi-module project which is made up by four modules.
 
 ``bestXStreamRatingUtils`` contains the common parts used in both the Spark and Flink implementation. Most of the program logic for the transformations and the sentiment analysis can be found here.
+
 ``bestXStreamRatingSpark`` contains the project for running as streaming job on Apache Spark.
+
 ``bestXStreamRatingFlink`` contains the project for running as streaming job on Apache Flin.
+
 ``bestXStreamRatingWebApp`` contains the web application that is organized as an npm conform Node.JS application.
 
 ## Prerequisites
