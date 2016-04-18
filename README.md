@@ -57,8 +57,8 @@ Both Spark and Flink accept or require the following command line parameters upo
 
 |Parameter|Description|Comment|Optional|
 | ------------- |:-------------|:-----|:-----:|
-| --winlen 40| The length of the window in seconds |  |Y|
-| --slidefreq 8|  The number of seconds after which the window slides |  |Y|
+| --winlen 40| The length of the window in seconds | For Spark this has to be a multiplier of batchlen |Y|
+| --slidefreq 8|  The number of seconds after which the window slides | For Spark this has to be a multiplier of batchlen |Y|
 | --batchlen 2 |  The length of a batch in Spark streaming| Spark only!  |Y|
 | --snlp |  Use StanfordNLP for sentiment analysis  | highly recommended! |Y|
 | --dict AFINN-111.txt| The fully qualified path to the sentiment dictionary. |  |N|
